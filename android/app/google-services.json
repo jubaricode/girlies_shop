@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "838773265456",
+    "firebase_url": "https://girlies-52cf0.firebaseio.com",
+    "project_id": "girlies-52cf0",
+    "storage_bucket": "girlies-52cf0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:838773265456:android:99c4567c953ce03a6f89f5",
+        "android_client_info": {
+          "package_name": "com.example.girlies_store"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "838773265456-1qt4dm855cpfjmvm1chcdpva1ihj8s26.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.girlies_store",
+            "certificate_hash": "7dcbf4c929454c82262f147516110d5c93fd85d7"
+          }
+        },
+        {
+          "client_id": "838773265456-2v4lc167ppc38cueqjcnhv10kq7jq25v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8IYWPPnEyn7B-KmV6iqCDLk3fPALkssQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "838773265456-2v4lc167ppc38cueqjcnhv10kq7jq25v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
