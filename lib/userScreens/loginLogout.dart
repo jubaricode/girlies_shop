@@ -59,7 +59,14 @@ class _GirliesLoginState extends State<GirliesLogin> {
   }
 
   verifyLoggin(){
-    
+    if ( email.text == ""){
+      showSnackBar("Email can't be empty", scaffoldKey);
+      return;
+    }
+
+    if(password.text == ""){
+      showSnackBar("Password can't empty", scaffoldKey);
+    }
   }
 
 }
