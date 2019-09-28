@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:girlies_store/tools/app_tools.dart';
+import 'package:girlies_store/userScreens/signup.dart';
 
 class GirliesLogin extends StatefulWidget {
   @override
@@ -10,10 +11,13 @@ class _GirliesLoginState extends State<GirliesLogin> {
   TextEditingController email = new TextEditingController();
   TextEditingController password = new TextEditingController();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
+  BuildContext context;
 
   @override
   Widget build(BuildContext context) {
+    this.context = context;
     return Scaffold(
+      key: scaffoldKey,
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         title: Text("Login"),
@@ -42,11 +46,12 @@ class _GirliesLoginState extends State<GirliesLogin> {
                 sidePadding: 18,
                 controller: password),
             appButton(
-                btnTxt: "Login",
+                btnTxt: "Login",onBtnClicked: verifyLoggin,
                 btnPadding: 20,
                 btnColor: Theme.of(context).primaryColor),
             GestureDetector(
                 onTap: () {
+                   Navigator.of(context).push(MaterialPageRoute(builder: (context)=> SignUp()));
                 },
                 child: Text(
                   "Not Registered? Sign Up Here",
@@ -59,14 +64,16 @@ class _GirliesLoginState extends State<GirliesLogin> {
   }
 
   verifyLoggin(){
-    if ( email.text == ""){
+    if (email.text ==""){
       showSnackBar("Email can't be empty", scaffoldKey);
       return;
     }
 
     if(password.text == ""){
       showSnackBar("Password can't empty", scaffoldKey);
+      return;
     }
+    displayProgressDialog(context);
   }
 
 }

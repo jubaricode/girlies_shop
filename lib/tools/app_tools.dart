@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:girlies_store/tools/progressdialog.dart';
 
 Widget appTextField({
   IconData textIcon,
@@ -10,6 +11,7 @@ Widget appTextField({
 ) {
   sidePadding == null ? sidePadding = 0 : sidePadding;
   textHint == null ? textHint = "" : textHint;
+  //textType == null ? textType == TextInputType.text : textType;
 
   return Padding(
     padding: EdgeInsets.only(left: sidePadding, right: sidePadding),
@@ -26,7 +28,7 @@ Widget appTextField({
         keyboardType: textType == null ? TextInputType.text: textType,
         decoration: InputDecoration(
           border: InputBorder.none,
-            hintText: textHint == null ? "" : textHint,
+            hintText: textHint,
             prefixIcon: textIcon == null ? Container() : Icon(textIcon)),
       ),
     ),
@@ -57,9 +59,22 @@ Widget appButton({ String btnTxt,double btnPadding, Color btnColor, VoidCallback
 
 showSnackBar(String message, final scaffoldKey){
   scaffoldKey.currentState.showSnackBar(new SnackBar(
+    backgroundColor: Colors.red[600],
     content: Text(
       message,
       style: TextStyle(color: Colors.white),
     ),
   ));
+}
+
+displayProgressDialog(BuildContext context){
+  Navigator.of(context).push(PageRouteBuilder(
+    opaque: false,
+    pageBuilder : (BuildContext context,_,__){
+      return ProgressDialog();
+    }));
+}
+
+closeProgressDialog(BuildContext context){
+  Navigator.of(context).pop();
 }
