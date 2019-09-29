@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:girlies_store/tools/app_methods.dart';
+import 'package:girlies_store/tools/app_data.dart';
 import 'package:girlies_store/tools/app_tools.dart';
+import 'package:girlies_store/tools/firebase_methods.dart';
 import 'package:girlies_store/userScreens/signup.dart';
 
 class GirliesLogin extends StatefulWidget {
@@ -12,6 +15,7 @@ class _GirliesLoginState extends State<GirliesLogin> {
   TextEditingController password = new TextEditingController();
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   BuildContext context;
+  AppMethods appMethod = new FirebaseMethods();
 
   @override
   Widget build(BuildContext context) {
@@ -31,19 +35,19 @@ class _GirliesLoginState extends State<GirliesLogin> {
               height: 30,
             ),
             appTextField(
-                textIcon: Icons.email,
-                textHint: "Email Address",
                 isPassword: false,
                 sidePadding: 18,
+                textIcon: Icons.email,
+                textHint: "Email Address",
                 controller: email),
             SizedBox(
               height: 30,
             ),
             appTextField(
-                textIcon: Icons.lock,
-                textHint: "Password",
                 isPassword: true,
                 sidePadding: 18,
+                textIcon: Icons.lock,
+                textHint: "Password",
                 controller: password),
             appButton(
                 btnTxt: "Login",onBtnClicked: verifyLoggin,
@@ -63,17 +67,26 @@ class _GirliesLoginState extends State<GirliesLogin> {
     );
   }
 
-  verifyLoggin(){
-    if (email.text ==""){
-      showSnackBar("Email can't be empty", scaffoldKey);
+  verifyLoggin() async {
+    if (email.text == "") {
+      showSnackBar("Email cannot be empty", scaffoldKey);
       return;
     }
 
-    if(password.text == ""){
-      showSnackBar("Password can't empty", scaffoldKey);
+    if (password.text == "") {
+      showSnackBar("Password cannot be empty", scaffoldKey);
       return;
     }
+
     displayProgressDialog(context);
+    String response = await appMethod.logginUser(
+        email: email.text.toLowerCase(), password: password.text.toLowerCase());
+    if (response == successful) {
+      closeProgressDialog(context);
+      Navigator.of(context).pop(true);
+    } else {
+      closeProgressDialog(context);
+      showSnackBar(response, scaffoldKey);
+    }
   }
-
 }

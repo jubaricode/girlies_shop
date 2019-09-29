@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:girlies_store/tools/app_methods.dart';
+import 'package:girlies_store/tools/app_data.dart';
 import 'package:girlies_store/tools/app_tools.dart';
+import 'package:girlies_store/tools/firebase_methods.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -7,14 +10,15 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  TextEditingController fullName = new TextEditingController();
+  TextEditingController fullname = new TextEditingController();
   TextEditingController phoneNumber = new TextEditingController();
   TextEditingController email = new TextEditingController();
   TextEditingController password = new TextEditingController();
-  TextEditingController re_password = new TextEditingController();
+  TextEditingController rePassword = new TextEditingController();
 
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   BuildContext context;
+  AppMethods appMethod = new FirebaseMethods();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +39,7 @@ class _SignUpState extends State<SignUp> {
                 textHint: "Full Name",
                 isPassword: false,
                 sidePadding: 18,
-                controller: fullName),
+                controller: fullname),
             SizedBox(
               height: 30,
             ),
@@ -43,7 +47,7 @@ class _SignUpState extends State<SignUp> {
                 textIcon: Icons.phone,
                 textType: TextInputType.number,
                 textHint: "Phone Number",
-                isPassword: true,
+                isPassword: false,
                 sidePadding: 18,
                 controller: phoneNumber),
             SizedBox(
@@ -72,7 +76,7 @@ class _SignUpState extends State<SignUp> {
                 textHint: "Re-Password",
                 isPassword: true,
                 sidePadding: 18,
-                controller: re_password),
+                controller: rePassword),
             appButton(
                 btnTxt: "Creat Account",
                 onBtnClicked: verifyDetails,
@@ -85,8 +89,8 @@ class _SignUpState extends State<SignUp> {
   }
 
 
-  verifyDetails() {
-    if (fullName.text == "") {
+  verifyDetails() async{
+    if (fullname.text == "") {
       showSnackBar("Full Name can't be empty", scaffoldKey);
       return;
     }
@@ -104,14 +108,28 @@ class _SignUpState extends State<SignUp> {
       showSnackBar("Password can't empty", scaffoldKey);
       return;
     }
-    if (re_password.text == "") {
+    if (rePassword.text == "") {
       showSnackBar("Re Password can't empty", scaffoldKey);
       return;
     }
-    if (password.text != re_password.text) {
+    if (password.text != rePassword.text) {
       showSnackBar("Password doesn't match", scaffoldKey);
       return;
     }
-    displayProgressDialog(context);
+   displayProgressDialog(context);
+    String response = await appMethod.createUserAccount(
+        fullname: fullname.text,
+        phone: phoneNumber.text,
+        email: email.text.toLowerCase(),
+        password: password.text.toLowerCase());
+
+    if (response == successful) {
+      closeProgressDialog(context);
+      Navigator.of(context).pop();
+      Navigator.of(context).pop(true);
+    } else {
+      closeProgressDialog(context);
+      showSnackBar(response, scaffoldKey);
+    }
   }
 }

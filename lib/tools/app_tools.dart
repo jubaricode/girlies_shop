@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:girlies_store/tools/progressdialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Widget appTextField({
   IconData textIcon,
@@ -60,7 +61,7 @@ Widget appButton({ String btnTxt,double btnPadding, Color btnColor, VoidCallback
 showSnackBar(String message, final scaffoldKey){
   scaffoldKey.currentState.showSnackBar(new SnackBar(
     backgroundColor: Colors.red[600],
-    content: Text(
+    content: Text(      
       message,
       style: TextStyle(color: Colors.white),
     ),
@@ -77,4 +78,11 @@ displayProgressDialog(BuildContext context){
 
 closeProgressDialog(BuildContext context){
   Navigator.of(context).pop();
+}
+
+writeDataLocally({String key, String value}) async {
+  Future<SharedPreferences> saveLocal = SharedPreferences.getInstance();
+  final SharedPreferences localData = await saveLocal;
+
+  localData.setString(key, value);
 }

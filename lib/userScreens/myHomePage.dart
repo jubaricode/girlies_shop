@@ -6,7 +6,7 @@ import 'package:girlies_store/userScreens/delivery.dart';
 import 'package:girlies_store/userScreens/favorites.dart';
 import 'package:girlies_store/userScreens/history.dart';
 import 'package:girlies_store/userScreens/itemDetail.dart';
-import 'package:girlies_store/userScreens/loginLogout.dart';
+import 'package:girlies_store/userScreens/login.dart';
 import 'package:girlies_store/userScreens/messages.dart';
 import 'package:girlies_store/userScreens/notifications.dart';
 import 'package:girlies_store/userScreens/profile.dart';
